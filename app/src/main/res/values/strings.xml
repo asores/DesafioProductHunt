@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Product Hunt Post</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="label_post">Posts</string>
+    <string name="label_vote">Votes</string>
+    <string name="label_voters">Voters</string>
+    <string name="message_loading">Loading</string>
+
+    <!-- Label Menu -->
+    <string name="menu_label_all">View All Post</string>
+    <string name="menu_label_date">Filter by date</string>
+    <string name="menu_label_vote">Number of votes</string>
+    <string name="menu_label_post">Number of post</string>
+    <string name="menu_label_title">Title</string>
+    <string name="menu_label_creator">Creator User</string>
+
+
+<!-- Message Erro -->
+    <string name="message_erro">Ops! Erro ao tenta buscar as informações. Favor tente novamente.</string>
+    <string name="message_erro_internet">Ops! You are without internet, viewing the last query successfully!</string>
+
+    <!-- Alerta - Erro-->
+    <string name="message_date_alert">Ops! No posts found for today date. Loading recent posts.</string>
+    <string name="button_positive">Okay</string>
+    <string name="button_negative">Exit</string>
+    <string name="title_alert">Alert</string>
+
+
+    <!-- Collection -->
+    <string name="title_fragment_collection">PH - Collections</string>
+
+    <!-- Post -->
+    <string name="title_fragment_post">PH - Posts</string>
+    <string name="message_filter_date">Hello, the POSTS to be displayed in the list will have no link to the selected collection before. \ nIf you want to go back to the previous posts in the collection, return to the previous screen and select your collation again.</string>
+    <string name="title_dialog">Notice</string>
+    <string name="label_button_dialog">Got it</string>
+
+
+    <!-- Details -->
+    <string name="title_fragment_details">PH - Post details</string>
+    <string name="label_commet">Comments</string>
+    <string name="label_details_creator">Creator Details</string>
+
+    <!-- Details User -->
+    <string name="title_fragment_user_details">PH - Details User</string>
+    <string name="label_details_post_creator">Posted Posts</string>
+    <string name="label_details_vote_creator">Featured Posts</string>
+
+
+</resources>
