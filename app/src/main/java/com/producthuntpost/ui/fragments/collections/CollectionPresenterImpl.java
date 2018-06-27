@@ -4,7 +4,7 @@ import android.support.design.widget.Snackbar;
 
 import com.producthuntpost.R;
 import com.producthuntpost.model.Collection;
-import com.producthuntpost.model.collections.CollectionsPostDTO;
+import com.producthuntpost.model.collections.CollectionsPostModel;
 import com.producthuntpost.service.ServiceCollection;
 import com.producthuntpost.util.Utils;
 import java.util.Collections;
@@ -17,7 +17,7 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class CollectionPresenterImpl implements ICollectionPresenter {
-    private CollectionsPostDTO collectionDTO;
+    private CollectionsPostModel collectionDTO;
     private ICollectionView mView;
 
     @Override
@@ -30,9 +30,9 @@ public class CollectionPresenterImpl implements ICollectionPresenter {
     public void getCollectionToday() {
         mView.showLoading();
         ServiceCollection.getTodayCollection(mView.getContext(),
-                new Callback<CollectionsPostDTO>() {
+                new Callback<CollectionsPostModel>() {
                     @Override
-                    public void onResponse(Response<CollectionsPostDTO> response, Retrofit retrofit) {
+                    public void onResponse(Response<CollectionsPostModel> response, Retrofit retrofit) {
                         if (response.code() >= 200 && response.code() < 300) {
                             setCollectionDTO(response.body());
                             mView.getCollectionData();
@@ -58,9 +58,9 @@ public class CollectionPresenterImpl implements ICollectionPresenter {
     public void getCollectionAll(final int page) {
         mView.showLoading();
         ServiceCollection.getAllCollection(mView.getContext(), page,
-                new Callback<CollectionsPostDTO>() {
+                new Callback<CollectionsPostModel>() {
                     @Override
-                    public void onResponse(Response<CollectionsPostDTO> response, Retrofit retrofit) {
+                    public void onResponse(Response<CollectionsPostModel> response, Retrofit retrofit) {
                         if (response.code() >= 200 && response.code() < 300) {
                             if(page == 1){
                                 setCollectionDTO(response.body());
@@ -137,12 +137,12 @@ public class CollectionPresenterImpl implements ICollectionPresenter {
     }
 
    @Override
-    public CollectionsPostDTO getCollectionDTO() {
+    public CollectionsPostModel getCollectionDTO() {
         return collectionDTO;
     }
 
     @Override
-    public void setCollectionDTO(CollectionsPostDTO collectionDTO) {
+    public void setCollectionDTO(CollectionsPostModel collectionDTO) {
         this.collectionDTO = collectionDTO;
 
     }

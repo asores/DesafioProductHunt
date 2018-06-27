@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import com.producthuntpost.model.Collection;
 
 
-public class CollectionsPostDTO implements Serializable{
+public class CollectionsPostModel implements Serializable{
 
     @SerializedName("collections")
     @Expose

@@ -3,7 +3,7 @@ package com.producthuntpost.service;
 import android.content.Context;
 
 import com.producthuntpost.api.ApiService;
-import com.producthuntpost.model.users.UserDetailsDTO;
+import com.producthuntpost.model.users.UserDetailsModel;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -12,12 +12,12 @@ import retrofit.Retrofit;
 
 public class ServiceUser {
 
-    public static void getUserDetails(Context mContext, int idUser, final Callback<UserDetailsDTO> callback){
+    public static void getUserDetails(Context mContext, int idUser, final Callback<UserDetailsModel> callback){
         ApiService.IPosts service = ApiService.getApi(mContext);
-        final Call<UserDetailsDTO> call = service.getUserDetails(idUser);
-        call.enqueue(new Callback<UserDetailsDTO>() {
+        final Call<UserDetailsModel> call = service.getUserDetails(idUser);
+        call.enqueue(new Callback<UserDetailsModel>() {
             @Override
-            public void onResponse(Response<UserDetailsDTO> response, Retrofit retrofit) {
+            public void onResponse(Response<UserDetailsModel> response, Retrofit retrofit) {
                 callback.onResponse(response, retrofit);
             }
 

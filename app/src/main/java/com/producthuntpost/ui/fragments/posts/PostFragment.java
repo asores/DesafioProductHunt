@@ -21,7 +21,7 @@ import com.producthuntpost.R;
 import com.producthuntpost.adapter.post.IAdapterPost.AdapterCallback;
 import com.producthuntpost.adapter.post.ItemCardPostAdapter;
 import com.producthuntpost.adapter.post.ItemListPostAdapter;
-import com.producthuntpost.model.posts.PostsDTO;
+import com.producthuntpost.model.posts.PostsModel;
 import com.producthuntpost.ui.activity.HomeActivity;
 import com.producthuntpost.ui.fragments.BaseFragment;
 import com.producthuntpost.ui.fragments.datepicker.DatePickerFragment;
@@ -83,7 +83,7 @@ public class PostFragment extends BaseFragment implements IPostView, DatePickerF
     }
 
 
-    //Lista com CardView
+    //Lis CardView
     private void initListCard() {
         if (COUNT_PAGE == 1) {
             mLayoutManager = new LinearLayoutManager(getContext());
@@ -106,7 +106,7 @@ public class PostFragment extends BaseFragment implements IPostView, DatePickerF
         }
     }
 
-    //Lista sem CardView
+    //List View
     private void initList() {
         if (COUNT_PAGE == 1) {
             mLayoutManager = new LinearLayoutManager(getContext());
@@ -139,7 +139,7 @@ public class PostFragment extends BaseFragment implements IPostView, DatePickerF
             initListCard();
         }
 
-        //Fecha o Diaolog de Carregamento
+        //Close Diaolog
         hideLoading();
     }
 
@@ -172,7 +172,7 @@ public class PostFragment extends BaseFragment implements IPostView, DatePickerF
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         if (savedInstanceState != null) {
-            presenter.setCollectionDTO((PostsDTO) savedInstanceState.getSerializable(Constants.POST_DATA));
+            presenter.setCollectionDTO((PostsModel) savedInstanceState.getSerializable(Constants.POST_DATA));
             savedPosition = savedInstanceState.getInt(Constants.STATE_SCROLL_POSITION);
             isUpdateScrollInfinite = savedInstanceState.getBoolean(Constants.STATE_SCROLL_INFINITE);
             if (Utils.getRotatioScreen(getContext())) {

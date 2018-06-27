@@ -12,34 +12,40 @@ import android.widget.TextView;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.producthuntpost.R;
 import com.producthuntpost.adapter.details.IAdapterPost.DetailsUserVoteAdapterCallback;
-import com.producthuntpost.model.posts.details.DetailsPostDTO;
+import com.producthuntpost.model.posts.details.DetailsPostModel;
 import com.producthuntpost.model.posts.details.Vote;
 import com.producthuntpost.service.ServicePicasso;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ItemListUserVoteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private DetailsPostDTO detailsPostDTO;
+    private DetailsPostModel detailsPostModel;
     private Activity activity;
     private DetailsUserVoteAdapterCallback adapterCallback;
     private Picasso picasso;
 
-    public ItemListUserVoteAdapter(DetailsPostDTO detailsPostDTO, Activity activity, DetailsUserVoteAdapterCallback adapterCallback){
-        this.detailsPostDTO = detailsPostDTO;
+    public ItemListUserVoteAdapter(DetailsPostModel detailsPostModel, Activity activity, DetailsUserVoteAdapterCallback adapterCallback){
+        this.detailsPostModel = detailsPostModel;
         this.activity = activity;
         this.adapterCallback = adapterCallback;
         picasso = new Picasso.Builder(activity).downloader(ServicePicasso.getClientPicasso(activity)).build();
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        private LinearLayout llItemUser;
-        private TextView txtNameUser, txtNameHeadLine;
-        private RoundedImageView avatarUser;
+        @BindView(R.id.ll_item_user)
+        LinearLayout llItemUser;
+        @BindView(R.id.text_name_user)
+        TextView txtNameUser;
+        @BindView(R.id.text_name_head_line)
+        TextView txtNameHeadLine;
+        @BindView(R.id.img_avatar)
+        RoundedImageView avatarUser;
+
         public ItemViewHolder(View itemView) {
             super(itemView);
-            llItemUser = (LinearLayout) itemView.findViewById(R.id.ll_item_user);
-            txtNameUser = (TextView) itemView.findViewById(R.id.text_name_user);
-            txtNameHeadLine = (TextView) itemView.findViewById(R.id.text_name_head_line);
-            avatarUser = (RoundedImageView) itemView.findViewById(R.id.img_avatar);
+            ButterKnife.bind(this, itemView);
         }
     }
 
@@ -53,7 +59,7 @@ public class ItemListUserVoteAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ItemViewHolder itemHolder = (ItemViewHolder) holder;
-        final Vote vote = detailsPostDTO.getPost().getVotes().get(position);
+        final Vote vote = detailsPostModel.getPost().getVotes().get(position);
 
         itemHolder.txtNameUser.setText(vote.getUser().getName());
         itemHolder.txtNameHeadLine.setText(vote.getUser().getHeadline());
@@ -74,8 +80,8 @@ public class ItemListUserVoteAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     @Override
     public int getItemCount() {
-        if (detailsPostDTO != null) {
-            return detailsPostDTO.getPost().getVotes().size();
+        if (detailsPostModel != null) {
+            return detailsPostModel.getPost().getVotes().size();
         } else {
             return 0;
         }

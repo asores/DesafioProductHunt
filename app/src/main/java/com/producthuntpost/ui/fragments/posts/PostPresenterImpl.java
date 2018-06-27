@@ -6,7 +6,7 @@ import android.support.design.widget.Snackbar;
 
 import com.producthuntpost.R;
 import com.producthuntpost.model.Post;
-import com.producthuntpost.model.posts.PostsDTO;
+import com.producthuntpost.model.posts.PostsModel;
 import com.producthuntpost.service.ServicePost;
 import com.producthuntpost.util.Utils;
 
@@ -20,8 +20,8 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class PostPresenterImpl implements IPostPresenter {
-    private PostsDTO postsAllDTO;
-    private PostsDTO postsTodayDTO;
+    private PostsModel postsAllDTO;
+    private PostsModel postsTodayDTO;
     private IPostView mView;
     private boolean isShowMessageFilterDate = false;
 
@@ -35,9 +35,9 @@ public class PostPresenterImpl implements IPostPresenter {
     public void getPost(final int idCollectionSelect) {
         mView.showLoading();
         ServicePost.getPost(mView.getContext(), idCollectionSelect,
-                new Callback<PostsDTO>() {
+                new Callback<PostsModel>() {
                     @Override
-                    public void onResponse(Response<PostsDTO> response, Retrofit retrofit) {
+                    public void onResponse(Response<PostsModel> response, Retrofit retrofit) {
                         if (response.code() >= 200 && response.code() < 300) {
                             postsAllDTO = response.body();
                             setCollectionDTO(response.body());
@@ -64,9 +64,9 @@ public class PostPresenterImpl implements IPostPresenter {
     public void getPostAll(final int page) {
         mView.showLoading();
         ServicePost.getPostAll(mView.getContext(), page,
-                new Callback<PostsDTO>() {
+                new Callback<PostsModel>() {
                     @Override
-                    public void onResponse(Response<PostsDTO> response, Retrofit retrofit) {
+                    public void onResponse(Response<PostsModel> response, Retrofit retrofit) {
                         if (response.code() >= 200 && response.code() < 300) {
                             if(page == 1){
                                 postsTodayDTO.getCollection().setPosts(response.body().getPosts());
@@ -99,13 +99,13 @@ public class PostPresenterImpl implements IPostPresenter {
     public void getPostDay(String day) {
         mView.showLoading();
         ServicePost.getPostDay(mView.getContext(), day,
-                new Callback<PostsDTO>() {
+                new Callback<PostsModel>() {
                     @Override
-                    public void onResponse(Response<PostsDTO> response, Retrofit retrofit) {
+                    public void onResponse(Response<PostsModel> response, Retrofit retrofit) {
                         if (response.code() >= 200 && response.code() < 300) {
                             postsTodayDTO.getCollection().setPosts(response.body().getPosts());
 
-                            //Verifica se já foi exibido para o usuário a mensagem sobre os posts com filtro de data.
+                            //Checks whether the user has already been shown the message about posts with date filter.
                             if (isShowMessageFilterDate) {
                                 mView.getPostData();
                             } else {
@@ -179,14 +179,14 @@ public class PostPresenterImpl implements IPostPresenter {
     }
 
     @Override
-    public PostsDTO getPostDTO() {
+    public PostsModel getPostDTO() {
         return postsTodayDTO;
     }
 
 
     @Override
-    public void setCollectionDTO(PostsDTO postsDTO) {
-        this.postsTodayDTO = postsDTO;
+    public void setCollectionDTO(PostsModel postsModel) {
+        this.postsTodayDTO = postsModel;
     }
 
     private void verifyDate() {

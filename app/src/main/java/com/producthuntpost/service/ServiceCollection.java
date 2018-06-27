@@ -3,7 +3,7 @@ package com.producthuntpost.service;
 import android.content.Context;
 
 import com.producthuntpost.api.ApiService;
-import com.producthuntpost.model.collections.CollectionsPostDTO;
+import com.producthuntpost.model.collections.CollectionsPostModel;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -14,12 +14,12 @@ import retrofit.Retrofit;
 public class ServiceCollection {
     private static int PER_PAGE  = 20;
 
-    public static void getTodayCollection(Context mContext, final Callback<CollectionsPostDTO> callback){
+    public static void getTodayCollection(Context mContext, final Callback<CollectionsPostModel> callback){
         ApiService.IPosts service = ApiService.getApi(mContext);
-        final Call<CollectionsPostDTO> call = service.getCollection();
-        call.enqueue(new Callback<CollectionsPostDTO>() {
+        final Call<CollectionsPostModel> call = service.getCollection();
+        call.enqueue(new Callback<CollectionsPostModel>() {
             @Override
-            public void onResponse(Response<CollectionsPostDTO> response, Retrofit retrofit) {
+            public void onResponse(Response<CollectionsPostModel> response, Retrofit retrofit) {
                 callback.onResponse(response, retrofit);
             }
 
@@ -30,12 +30,12 @@ public class ServiceCollection {
         });
     }
 
-    public static void getAllCollection(Context mContext, int page, final Callback<CollectionsPostDTO> callback){
+    public static void getAllCollection(Context mContext, int page, final Callback<CollectionsPostModel> callback){
         ApiService.IPosts service = ApiService.getApi(mContext);
-        final Call<CollectionsPostDTO> call = service.getCollectionAll(PER_PAGE, page);
-        call.enqueue(new Callback<CollectionsPostDTO>() {
+        final Call<CollectionsPostModel> call = service.getCollectionAll(PER_PAGE, page);
+        call.enqueue(new Callback<CollectionsPostModel>() {
             @Override
-            public void onResponse(Response<CollectionsPostDTO> response, Retrofit retrofit) {
+            public void onResponse(Response<CollectionsPostModel> response, Retrofit retrofit) {
                 callback.onResponse(response, retrofit);
             }
 

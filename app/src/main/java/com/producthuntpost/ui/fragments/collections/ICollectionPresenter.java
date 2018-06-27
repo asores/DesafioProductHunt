@@ -1,11 +1,11 @@
 package com.producthuntpost.ui.fragments.collections;
 
-import com.producthuntpost.model.collections.CollectionsPostDTO;
+import com.producthuntpost.model.collections.CollectionsPostModel;
 
 public interface ICollectionPresenter {
     void setView(ICollectionView view);
-    void setCollectionDTO(CollectionsPostDTO collectionDTO);
-    CollectionsPostDTO getCollectionDTO();
+    void setCollectionDTO(CollectionsPostModel collectionDTO);
+    CollectionsPostModel getCollectionDTO();
     void getCollectionToday();
     void getCollectionAll(int page);
     void sortNumberPost();

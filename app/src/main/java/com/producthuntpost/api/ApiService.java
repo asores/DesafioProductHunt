@@ -2,10 +2,10 @@ package com.producthuntpost.api;
 
 import android.content.Context;
 
-import com.producthuntpost.model.collections.CollectionsPostDTO;
-import com.producthuntpost.model.posts.PostsDTO;
-import com.producthuntpost.model.posts.details.DetailsPostDTO;
-import com.producthuntpost.model.users.UserDetailsDTO;
+import com.producthuntpost.model.collections.CollectionsPostModel;
+import com.producthuntpost.model.posts.PostsModel;
+import com.producthuntpost.model.posts.details.DetailsPostModel;
+import com.producthuntpost.model.users.UserDetailsModel;
 import com.producthuntpost.util.Constants;
 import com.producthuntpost.util.Utils;
 import com.squareup.okhttp.Cache;
@@ -30,7 +30,7 @@ public class ApiService {
 
 
     public static IPosts getApi(final Context context) {
-        int cacheSize = 10 * 1024 * 1024; // 10 MB
+        int cacheSize = 10 * 1024 * 1024;
         File httpCacheDirectory = new File(context.getCacheDir(), "responses");
         Cache cache = new Cache(httpCacheDirectory, cacheSize);
 
@@ -93,31 +93,31 @@ public class ApiService {
 
     public interface IPosts {
         @GET("/v1/collections")
-        Call<CollectionsPostDTO> getCollection();
+        Call<CollectionsPostModel> getCollection();
 
         @GET("v1/collections")
-        Call<CollectionsPostDTO> getCollectionAll(
+        Call<CollectionsPostModel> getCollectionAll(
                 @Query("per_page") int perPage,
                 @Query("page") int page
         );
 
         @GET("v1/collections/{idCollectionSelect}")
-        Call<PostsDTO> getPost( @Path("idCollectionSelect") int idCollectionSelect );
+        Call<PostsModel> getPost(@Path("idCollectionSelect") int idCollectionSelect );
 
         @GET("v1/posts/all")
-        Call<PostsDTO> getPostAll(
+        Call<PostsModel> getPostAll(
                 @Query("per_page") int perPage,
                 @Query("page") int page
         );
 
         @GET("v1/posts/{idPostSelect}")
-        Call<DetailsPostDTO> getPostDetails(@Path("idPostSelect") int idPostSelect );
+        Call<DetailsPostModel> getPostDetails(@Path("idPostSelect") int idPostSelect );
 
         @GET("v1/posts")
-        Call<PostsDTO> getPostDay(@Query("day") String day);
+        Call<PostsModel> getPostDay(@Query("day") String day);
 
         @GET("v1/users/{idUser}")
-        Call<UserDetailsDTO> getUserDetails(@Path("idUser") int idUser);
+        Call<UserDetailsModel> getUserDetails(@Path("idUser") int idUser);
 
     }
 

@@ -13,13 +13,13 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.producthuntpost.R;
 import com.producthuntpost.adapter.users.IUserAdapterUser.UserAdapterCallback;
 import com.producthuntpost.model.Post;
-import com.producthuntpost.model.posts.PostsDTO;
 import com.producthuntpost.service.ServicePicasso;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import retrofit.http.POST;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ItemCardUserDetailsPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Post> listPosts;
@@ -37,20 +37,27 @@ public class ItemCardUserDetailsPostAdapter extends RecyclerView.Adapter<Recycle
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        private CardView cardViewItemCollection;
-        private TextView txtInfoTitle, txtInfoDescription, txtNameUser, txtNameHeadLine, txtLabelPostOrVotes, txtVote;
-        private RoundedImageView avatarUser;
+        @BindView(R.id.card_view_item)
+        CardView cardViewItemCollection;
+        @BindView(R.id.text_name)
+        TextView txtInfoTitle;
+        @BindView(R.id.text_label_votes)
+        TextView txtLabelPostOrVotes;
+        @BindView(R.id.text_vote)
+        TextView txtVote;
+        @BindView(R.id.text_description)
+        TextView txtInfoDescription;
+        @BindView(R.id.text_name_user)
+        TextView txtNameUser;
+        @BindView(R.id.text_name_head_line)
+        TextView txtNameHeadLine;
+        @BindView(R.id.img_avatar)
+        RoundedImageView avatarUser;
+
 
         public ItemViewHolder(View view) {
             super(view);
-            cardViewItemCollection = (CardView) view.findViewById(R.id.card_view_item);
-            txtInfoTitle = (TextView) view.findViewById(R.id.text_name);
-            txtLabelPostOrVotes = (TextView) view.findViewById(R.id.text_label_votes);
-            txtVote = (TextView) view.findViewById(R.id.text_vote);
-            txtInfoDescription = (TextView) view.findViewById(R.id.text_description);
-            txtNameUser = (TextView) view.findViewById(R.id.text_name_user);
-            txtNameHeadLine = (TextView) view.findViewById(R.id.text_name_head_line);
-            avatarUser = (RoundedImageView) view.findViewById(R.id.img_avatar);
+            ButterKnife.bind(this, itemView);
         }
     }
 
@@ -104,21 +111,10 @@ public class ItemCardUserDetailsPostAdapter extends RecyclerView.Adapter<Recycle
         }
     }
 
-
-    public int getViewPosition() {
-        return viewPosition;
-    }
-
     public void setViewPosition(int viewPosition) {
         this.viewPosition = viewPosition;
     }
 
-
-
-    public void setCollectionsPostDTO(List<Post> listPosts) {
-        this.listPosts = listPosts;
-        notifyDataSetChanged();
-    }
 
 
 }

@@ -2,7 +2,7 @@ package com.producthuntpost.ui.fragments.detailspost;
 
 import com.producthuntpost.R;
 import com.producthuntpost.model.posts.details.Comment;
-import com.producthuntpost.model.posts.details.DetailsPostDTO;
+import com.producthuntpost.model.posts.details.DetailsPostModel;
 import com.producthuntpost.service.ServicePost;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import retrofit.Retrofit;
 
 public class DetailsPresenterImpl implements IDetailsPresenter {
     private IDetailsView mView;
-    private DetailsPostDTO detailsPostDTO;
+    private DetailsPostModel detailsPostModel;
 
     @Override
     public void setView(IDetailsView view) {
@@ -25,11 +25,11 @@ public class DetailsPresenterImpl implements IDetailsPresenter {
     public void getDetailsPost(int idPostSelect) {
         mView.showLoading();
         ServicePost.getPostDetails(mView.getContext(),idPostSelect,
-                new Callback<DetailsPostDTO>() {
+                new Callback<DetailsPostModel>() {
                     @Override
-                    public void onResponse(Response<DetailsPostDTO> response, Retrofit retrofit) {
+                    public void onResponse(Response<DetailsPostModel> response, Retrofit retrofit) {
                         if (response.code() >= 200 && response.code() < 300) {
-                            setDetailsPostDTO(response.body());
+                            setDetailsPostModel(response.body());
                             mView.setDetailsPost();
                         } else if (response.code() == 401) {
                             mView.hideLoading();
@@ -51,32 +51,32 @@ public class DetailsPresenterImpl implements IDetailsPresenter {
     }
 
     @Override
-    public DetailsPostDTO getDetailsPostDTO() {
-        return detailsPostDTO;
+    public DetailsPostModel getDetailsPostModel() {
+        return detailsPostModel;
     }
 
     @Override
     public int getIdUserCreatorPost() {
-        return getDetailsPostDTO().getPost().getUser().getId();
+        return getDetailsPostModel().getPost().getUser().getId();
     }
 
     @Override
     public String getNameUser() {
-        return getDetailsPostDTO().getPost().getName();
+        return getDetailsPostModel().getPost().getName();
     }
 
     @Override
     public String getDescriptionUser() {
-        return getDetailsPostDTO().getPost().getDescription();
+        return getDetailsPostModel().getPost().getDescription();
     }
 
     @Override
     public List<Comment> getComments() {
-        return getDetailsPostDTO().getPost().getComments();
+        return getDetailsPostModel().getPost().getComments();
     }
 
 
-    public void setDetailsPostDTO(DetailsPostDTO detailsPostDTO) {
-        this.detailsPostDTO = detailsPostDTO;
+    public void setDetailsPostModel(DetailsPostModel detailsPostModel) {
+        this.detailsPostModel = detailsPostModel;
     }
 }

@@ -30,7 +30,7 @@ public class HomeActivityTest {
                 .getSupportFragmentManager().beginTransaction();
     }
 
-    //Inicio Teste Collections
+
     @Test
     public void testTransitionFragments(){
         onView(withId(R.id.recyclerView)).check(matches(isDisplayed()));
@@ -65,10 +65,8 @@ public class HomeActivityTest {
             e.printStackTrace();
         }
     }
-    //Fim do Teste Collections
 
 
-    //Inicio Teste Post
     public void testFragmentPost(){
         onView(withId(R.id.recyclerViewPost)).check(matches(isDisplayed()));
 
@@ -103,11 +101,8 @@ public class HomeActivityTest {
             e.printStackTrace();
         }
     }
-    //Fim do Teste Post
 
 
-
-    //Inicio Teste Detalhes do Post
     public void testFragmentDetailsPost(){
         onView(withId(R.id.recycler_view_user_post)).check(matches(isDisplayed()));
 
@@ -141,6 +136,5 @@ public class HomeActivityTest {
             e.printStackTrace();
         }
     }
-    //Fim do Teste  Detalhes do Post
 
 }

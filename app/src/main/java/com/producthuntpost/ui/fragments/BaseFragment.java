@@ -30,10 +30,8 @@ public class BaseFragment extends Fragment implements IBaseView {
 
     @Override
     public void hideLoading() {
-        if (!getActivity().isFinishing()) {
-            if (loading.isShowing())
-                loading.dismiss();
-        }
+        if (loading.isShowing())
+            loading.dismiss();
     }
 
     @Override
@@ -42,6 +40,6 @@ public class BaseFragment extends Fragment implements IBaseView {
                 .setTitle(getContext().getString(R.string.title_alert))
                 .setMessage(message)
                 .setCancelable(false)
-                .setPositiveButton("Ok",null).create().show();
+                .setPositiveButton("Ok", null).create().show();
     }
 }

@@ -13,42 +13,49 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.producthuntpost.R;
 import com.producthuntpost.adapter.post.IAdapterPost.AdapterCallback;
 import com.producthuntpost.model.Post;
-import com.producthuntpost.model.posts.PostsDTO;
+import com.producthuntpost.model.posts.PostsModel;
 import com.producthuntpost.service.ServicePicasso;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ItemListPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private PostsDTO postsDTO;
+    private PostsModel postsModel;
     private int viewPosition;
     private Picasso picasso;
     private AdapterCallback adapterCallbackItem;
     private Activity activity;
 
 
-    public ItemListPostAdapter(PostsDTO postsDTO, Activity activity, AdapterCallback adapterCallback){
-        this.postsDTO = postsDTO;
+    public ItemListPostAdapter(PostsModel postsModel, Activity activity, AdapterCallback adapterCallback){
+        this.postsModel = postsModel;
         this.activity = activity;
         picasso = new Picasso.Builder(activity).downloader(ServicePicasso.getClientPicasso(activity)).build();
         this.adapterCallbackItem = adapterCallback;
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        private RelativeLayout rlItemCollection;
-        private TextView txtInfoTitle, txtInfoDescription, txtNameUser, txtNameHeadLine, txtLabelPostOrVotes, txtVote;
-        private RoundedImageView avatarUser;
+        @BindView(R.id.rl_item_collection)
+        RelativeLayout rlItemCollection;
+        @BindView(R.id.text_name)
+        TextView txtInfoTitle;
+        @BindView(R.id.text_label_post_or_votes)
+        TextView txtLabelPostOrVotes;
+        @BindView(R.id.text_vote)
+        TextView txtVote;
+        @BindView(R.id.text_description)
+        TextView txtInfoDescription;
+        @BindView(R.id.text_name_user)
+        TextView txtNameUser;
+        @BindView(R.id.text_name_head_line)
+        TextView txtNameHeadLine;
+        @BindView(R.id.img_avatar)
+        RoundedImageView avatarUser;
 
         public ItemViewHolder(View view) {
             super(view);
-            rlItemCollection = (RelativeLayout) view.findViewById(R.id.rl_item_collection);
-            txtInfoTitle = (TextView) view.findViewById(R.id.text_name);
-            txtLabelPostOrVotes = (TextView) view.findViewById(R.id.text_label_post_or_votes);
-            txtVote = (TextView) view.findViewById(R.id.text_vote);
-            txtInfoDescription = (TextView) view.findViewById(R.id.text_description);
-            txtNameUser = (TextView) view.findViewById(R.id.text_name_user);
-            txtNameHeadLine = (TextView) view.findViewById(R.id.text_name_head_line);
-            avatarUser = (RoundedImageView) view.findViewById(R.id.img_avatar);
-
-
+            ButterKnife.bind(this, view);
         }
     }
 
@@ -63,7 +70,7 @@ public class ItemListPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         setViewPosition(position);
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-        final Post post = postsDTO.getCollection().getPosts().get(position);
+        final Post post = postsModel.getCollection().getPosts().get(position);
 
         itemViewHolder.txtInfoTitle.setText(post.getName());
         itemViewHolder.txtLabelPostOrVotes.setText(activity.getString(R.string.label_post));
@@ -93,8 +100,8 @@ public class ItemListPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        if (postsDTO != null) {
-            return postsDTO.getCollection().getPosts().size();
+        if (postsModel != null) {
+            return postsModel.getCollection().getPosts().size();
         } else {
             return 0;
         }
@@ -108,8 +115,8 @@ public class ItemListPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.viewPosition = viewPosition;
     }
 
-    public void setCollectionsPostDTO(PostsDTO postDTO) {
-        this.postsDTO = postDTO;
+    public void setCollectionsPostDTO(PostsModel postDTO) {
+        this.postsModel = postDTO;
         notifyDataSetChanged();
     }
 }

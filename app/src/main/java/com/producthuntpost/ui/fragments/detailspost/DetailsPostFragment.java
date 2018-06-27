@@ -98,7 +98,7 @@ public class DetailsPostFragment extends BaseFragment implements IDetailsView, V
 
     private void initViews() {
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheetComment);
-        if (presenter.getDetailsPostDTO() != null) {
+        if (presenter.getDetailsPostModel() != null) {
             txtTituloDetails.setText(presenter.getNameUser());
             txtDescriptionDetails.setText(presenter.getDescriptionUser());
             txtLabelUserVotes.setText(getString(R.string.label_voters));
@@ -119,7 +119,7 @@ public class DetailsPostFragment extends BaseFragment implements IDetailsView, V
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewUserPost.setHasFixedSize(true);
         recyclerViewUserPost.setLayoutManager(mLayoutManager);
-        adapterCardUserVote = new ItemCardUserVoteAdapter(presenter.getDetailsPostDTO(), getActivity(), this);
+        adapterCardUserVote = new ItemCardUserVoteAdapter(presenter.getDetailsPostModel(), getActivity(), this);
         recyclerViewUserPost.setAdapter(adapterCardUserVote);
         adapterCardUserVote.notifyDataSetChanged();
 
@@ -131,7 +131,7 @@ public class DetailsPostFragment extends BaseFragment implements IDetailsView, V
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewUserPost.setHasFixedSize(true);
         recyclerViewUserPost.setLayoutManager(mLayoutManager);
-        adapterListUserVote = new ItemListUserVoteAdapter(presenter.getDetailsPostDTO(), getActivity(), this);
+        adapterListUserVote = new ItemListUserVoteAdapter(presenter.getDetailsPostModel(), getActivity(), this);
         recyclerViewUserPost.setAdapter(adapterListUserVote);
         adapterListUserVote.notifyDataSetChanged();
         initListComment();

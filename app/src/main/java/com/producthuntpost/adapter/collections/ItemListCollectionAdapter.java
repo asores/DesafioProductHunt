@@ -13,41 +13,49 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.producthuntpost.R;
 import com.producthuntpost.adapter.collections.IAdapterCollection.AdapterCollectionCallback;
 import com.producthuntpost.model.Collection;
-import com.producthuntpost.model.collections.CollectionsPostDTO;
+import com.producthuntpost.model.collections.CollectionsPostModel;
 import com.producthuntpost.service.ServicePicasso;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ItemListCollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private CollectionsPostDTO collectionsPostDTO;
+    private CollectionsPostModel collectionsPostModel;
     private int viewPosition;
     private Picasso picasso;
     private Activity activity;
     private AdapterCollectionCallback adapterCollectionCallbackItem;
 
 
-    public ItemListCollectionAdapter(CollectionsPostDTO collectionsPostDTO, Activity activity, AdapterCollectionCallback adapterCollectionCallback){
-        this.collectionsPostDTO = collectionsPostDTO;
+    public ItemListCollectionAdapter(CollectionsPostModel collectionsPostModel, Activity activity, AdapterCollectionCallback adapterCollectionCallback) {
+        this.collectionsPostModel = collectionsPostModel;
         this.activity = activity;
         picasso = new Picasso.Builder(activity).downloader(ServicePicasso.getClientPicasso(activity)).build();
         this.adapterCollectionCallbackItem = adapterCollectionCallback;
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        private RelativeLayout rlItemCollection;
-        private TextView txtInfoTitle, txtInfoDescription, txtNameUser, txtNameHeadLine, txtLabelPostOrVotes, txtVote;
-        private RoundedImageView avatarUser;
+        @BindView(R.id.rl_item_collection)
+        RelativeLayout rlItemCollection;
+        @BindView(R.id.text_name)
+        TextView txtInfoTitle;
+        @BindView(R.id.text_description)
+        TextView txtInfoDescription;
+        @BindView(R.id.text_name_user)
+        TextView txtNameUser;
+        @BindView(R.id.text_name_head_line)
+        TextView txtNameHeadLine;
+        @BindView(R.id.text_label_post_or_votes)
+        TextView txtLabelPostOrVotes;
+        @BindView(R.id.text_vote)
+        TextView txtVote;
+        @BindView(R.id.img_avatar)
+        RoundedImageView avatarUser;
 
         public ItemViewHolder(View view) {
             super(view);
-            rlItemCollection = (RelativeLayout) view.findViewById(R.id.rl_item_collection);
-            txtInfoTitle = (TextView) view.findViewById(R.id.text_name);
-            txtLabelPostOrVotes = (TextView) view.findViewById(R.id.text_label_post_or_votes);
-            txtVote = (TextView) view.findViewById(R.id.text_vote);
-            txtInfoDescription = (TextView) view.findViewById(R.id.text_description);
-            txtNameUser = (TextView) view.findViewById(R.id.text_name_user);
-            txtNameHeadLine = (TextView) view.findViewById(R.id.text_name_head_line);
-            avatarUser = (RoundedImageView) view.findViewById(R.id.img_avatar);
-
+            ButterKnife.bind(this, view);
         }
     }
 
@@ -62,14 +70,14 @@ public class ItemListCollectionAdapter extends RecyclerView.Adapter<RecyclerView
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         setViewPosition(position);
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-        final Collection collectionItem = collectionsPostDTO.getCollections().get(position);
+        final Collection collectionItem = collectionsPostModel.getCollections().get(position);
 
         itemViewHolder.txtInfoTitle.setText(collectionItem.getName());
         itemViewHolder.txtLabelPostOrVotes.setText(activity.getString(R.string.label_post));
         itemViewHolder.txtVote.setText(String.valueOf(collectionItem.getPostsCount()));
-        if(collectionItem.getTagline() == null){
+        if (collectionItem.getTagline() == null) {
             itemViewHolder.txtInfoDescription.setVisibility(View.GONE);
-        }else {
+        } else {
             itemViewHolder.txtInfoDescription.setText(collectionItem.getTagline());
         }
 
@@ -92,11 +100,7 @@ public class ItemListCollectionAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public int getItemCount() {
-        if (collectionsPostDTO != null) {
-            return collectionsPostDTO.getCollections().size();
-        } else {
-            return 0;
-        }
+        return collectionsPostModel.getCollections().size();
     }
 
     public int getViewPosition() {
@@ -107,8 +111,8 @@ public class ItemListCollectionAdapter extends RecyclerView.Adapter<RecyclerView
         this.viewPosition = viewPosition;
     }
 
-    public void setCollectionsPostDTO(CollectionsPostDTO collectionsPostDTO) {
-        this.collectionsPostDTO = collectionsPostDTO;
+    public void setCollectionsPostModel(CollectionsPostModel collectionsPostModel) {
+        this.collectionsPostModel = collectionsPostModel;
         notifyDataSetChanged();
     }
 }

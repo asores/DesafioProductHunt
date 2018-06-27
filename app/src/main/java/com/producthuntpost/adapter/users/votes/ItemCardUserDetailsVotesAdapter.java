@@ -19,6 +19,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ItemCardUserDetailsVotesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Vote> listVotes;
     private Activity activity;
@@ -27,7 +30,7 @@ public class ItemCardUserDetailsVotesAdapter extends RecyclerView.Adapter<Recycl
     private UserAdapterCallback userAdapterCallback;
 
 
-    public ItemCardUserDetailsVotesAdapter(List<Vote> listVotes, Activity activity, UserAdapterCallback userAdapterCallback){
+    public ItemCardUserDetailsVotesAdapter(List<Vote> listVotes, Activity activity, UserAdapterCallback userAdapterCallback) {
         this.listVotes = listVotes;
         this.activity = activity;
         picasso = new Picasso.Builder(activity).downloader(ServicePicasso.getClientPicasso(activity)).build();
@@ -35,20 +38,27 @@ public class ItemCardUserDetailsVotesAdapter extends RecyclerView.Adapter<Recycl
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        private CardView cardViewItemCollection;
-        private TextView txtInfoTitle, txtInfoDescription, txtNameUser, txtNameHeadLine, txtLabelPostOrVotes, txtVote;
-        private RoundedImageView avatarUser;
+        @BindView(R.id.card_view_item)
+        CardView cardViewItemCollection;
+        @BindView(R.id.text_name)
+        TextView txtInfoTitle;
+        @BindView(R.id.text_description)
+        TextView txtInfoDescription;
+        @BindView(R.id.text_name_user)
+        TextView txtNameUser;
+        @BindView(R.id.text_name_head_line)
+        TextView txtNameHeadLine;
+        @BindView(R.id.text_label_votes)
+        TextView txtLabelPostOrVotes;
+        @BindView(R.id.text_vote)
+        TextView txtVote;
+        @BindView(R.id.img_avatar)
+        RoundedImageView avatarUser;
+
 
         public ItemViewHolder(View view) {
             super(view);
-            cardViewItemCollection = (CardView) view.findViewById(R.id.card_view_item);
-            txtInfoTitle = (TextView) view.findViewById(R.id.text_name);
-            txtLabelPostOrVotes = (TextView) view.findViewById(R.id.text_label_votes);
-            txtVote = (TextView) view.findViewById(R.id.text_vote);
-            txtInfoDescription = (TextView) view.findViewById(R.id.text_description);
-            txtNameUser = (TextView) view.findViewById(R.id.text_name_user);
-            txtNameHeadLine = (TextView) view.findViewById(R.id.text_name_head_line);
-            avatarUser = (RoundedImageView) view.findViewById(R.id.img_avatar);
+            ButterKnife.bind(this, itemView);
         }
     }
 
@@ -68,9 +78,9 @@ public class ItemCardUserDetailsVotesAdapter extends RecyclerView.Adapter<Recycl
         itemViewHolder.txtInfoTitle.setText(post.getName());
         itemViewHolder.txtLabelPostOrVotes.setText(activity.getString(R.string.label_vote));
         itemViewHolder.txtVote.setText(String.valueOf(post.getVotesCount()));
-        if(post.getTagline() == null){
+        if (post.getTagline() == null) {
             itemViewHolder.txtInfoDescription.setVisibility(View.GONE);
-        }else {
+        } else {
             itemViewHolder.txtInfoDescription.setText(post.getTagline());
             itemViewHolder.txtInfoDescription.setLines(2);
         }
@@ -101,20 +111,8 @@ public class ItemCardUserDetailsVotesAdapter extends RecyclerView.Adapter<Recycl
         }
     }
 
-
-    public int getViewPosition() {
-        return viewPosition;
-    }
-
     public void setViewPosition(int viewPosition) {
         this.viewPosition = viewPosition;
-    }
-
-
-
-    public void setCollectionsPostDTO(List<Vote> listVotes) {
-        this.listVotes = listVotes;
-        notifyDataSetChanged();
     }
 
 

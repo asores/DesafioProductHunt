@@ -9,7 +9,7 @@ import com.producthuntpost.model.Post;
 import java.io.Serializable;
 import java.util.List;
 
-public class PostsDTO implements Serializable {
+public class PostsModel implements Serializable {
 
     @SerializedName("collection")
     @Expose

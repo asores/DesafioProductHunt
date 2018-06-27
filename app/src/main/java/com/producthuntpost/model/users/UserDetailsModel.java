@@ -6,7 +6,7 @@ import com.producthuntpost.model.User;
 
 import java.io.Serializable;
 
-public class UserDetailsDTO implements Serializable {
+public class UserDetailsModel implements Serializable {
     @SerializedName("user")
     @Expose
     private User user;

@@ -32,7 +32,6 @@ public class HomeActivity extends AppCompatActivity{
     private void initView() {
         FragmentManager fm = getSupportFragmentManager();
 
-        // Abre uma transação e adiciona
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.frame_fragment, mFragment, Constants.NAME_FRAGMENT_SAVE_STATE);
         ft.addToBackStack(Constants.NAME_FRAGMENT_SAVE_STATE);
@@ -42,7 +41,7 @@ public class HomeActivity extends AppCompatActivity{
 
     private void configRotationFragment(){
         int stackHeight = getSupportFragmentManager().getBackStackEntryCount();
-        if (stackHeight > 1) { // if we have something on the stack (doesn't include the current shown fragment)
+        if (stackHeight > 1) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         } else {
@@ -56,7 +55,7 @@ public class HomeActivity extends AppCompatActivity{
             @Override
             public void onBackStackChanged() {
                 int stackHeight = getSupportFragmentManager().getBackStackEntryCount();
-                if (stackHeight > 1) { // if we have something on the stack (doesn't include the current shown fragment)
+                if (stackHeight > 1) {
                     getSupportActionBar().setHomeButtonEnabled(true);
                     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 } else {

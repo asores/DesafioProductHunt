@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.producthuntpost.model.Post;
 
-public class DetailsPostDTO {
+public class DetailsPostModel {
 
     @SerializedName("post")
     @Expose

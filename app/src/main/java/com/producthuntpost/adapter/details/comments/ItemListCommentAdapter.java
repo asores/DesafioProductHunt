@@ -20,11 +20,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ItemListCommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Comment> comments;
     private Activity activity;
     private Picasso picasso;
-    private View view;
 
 
     public ItemListCommentAdapter(List<Comment> comments, Activity activity){
@@ -34,17 +36,20 @@ public class ItemListCommentAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        private LinearLayout llChildComment;
-        private TextView txtNameUser, txtNameHeadLine, txtCommentUser;
-        private RoundedImageView avatarUser;
+        @BindView(R.id.ll_child_comment)
+        LinearLayout llChildComment;
+        @BindView(R.id.text_name_user)
+        TextView txtNameUser;
+        @BindView(R.id.text_name_head_line)
+        TextView txtNameHeadLine;
+        @BindView(R.id.text_comment_user)
+        TextView txtCommentUser;
+        @BindView(R.id.img_avatar)
+        RoundedImageView avatarUser;
+
         public ItemViewHolder(View itemView) {
             super(itemView);
-            view = itemView;
-            llChildComment = (LinearLayout) itemView.findViewById(R.id.ll_child_comment);
-            txtNameUser = (TextView) itemView.findViewById(R.id.text_name_user);
-            txtNameHeadLine = (TextView) itemView.findViewById(R.id.text_name_head_line);
-            txtCommentUser = (TextView) itemView.findViewById(R.id.text_comment_user);
-            avatarUser = (RoundedImageView) itemView.findViewById(R.id.img_avatar);
+            ButterKnife.bind(this, itemView);
         }
     }
 

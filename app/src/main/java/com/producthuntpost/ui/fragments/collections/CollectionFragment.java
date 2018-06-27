@@ -24,7 +24,7 @@ import com.producthuntpost.R;
 import com.producthuntpost.adapter.collections.IAdapterCollection.AdapterCollectionCallback;
 import com.producthuntpost.adapter.collections.ItemCardCollectionAdapter;
 import com.producthuntpost.adapter.collections.ItemListCollectionAdapter;
-import com.producthuntpost.model.collections.CollectionsPostDTO;
+import com.producthuntpost.model.collections.CollectionsPostModel;
 import com.producthuntpost.ui.activity.HomeActivity;
 import com.producthuntpost.ui.fragments.BaseFragment;
 import com.producthuntpost.ui.fragments.datepicker.DatePickerFragment;
@@ -90,7 +90,7 @@ public class CollectionFragment extends BaseFragment implements ICollectionView,
     }
 
 
-    //Lista com CardView
+    //List CardView
     private void initListCard() {
         if (COUNT_PAGE == 1) {
             mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
@@ -107,12 +107,12 @@ public class CollectionFragment extends BaseFragment implements ICollectionView,
             recyclerView.addOnScrollListener(createInfiniteScrollListener());
             recyclerView.scrollToPosition(savedPosition);
         } else {
-            adapterCard.setCollectionsPostDTO(presenter.getCollectionDTO());
+            adapterCard.setCollectionsPostModel(presenter.getCollectionDTO());
 
         }
     }
 
-    //Lista sem CardView
+    //List View
     private void initList() {
         if (COUNT_PAGE == 1) {
             mLayoutManager = new LinearLayoutManager(getContext());
@@ -128,7 +128,7 @@ public class CollectionFragment extends BaseFragment implements ICollectionView,
             recyclerView.addOnScrollListener(createInfiniteScrollListener());
             recyclerView.scrollToPosition(savedPosition);
         } else {
-            adapterList.setCollectionsPostDTO(presenter.getCollectionDTO());
+            adapterList.setCollectionsPostModel(presenter.getCollectionDTO());
         }
     }
 
@@ -157,7 +157,7 @@ public class CollectionFragment extends BaseFragment implements ICollectionView,
         loadingScrollCollection = true;
         swipeLayout.setRefreshing(false);
 
-        //Fecha o Diaolog de Carregamento
+        //Close  Diaolog
         hideLoading();
     }
 
@@ -168,9 +168,9 @@ public class CollectionFragment extends BaseFragment implements ICollectionView,
     @Override
     public void getPostOrder() {
         if (dual) {
-            adapterList.setCollectionsPostDTO(presenter.getCollectionDTO());
+            adapterList.setCollectionsPostModel(presenter.getCollectionDTO());
         } else {
-            adapterCard.setCollectionsPostDTO(presenter.getCollectionDTO());
+            adapterCard.setCollectionsPostModel(presenter.getCollectionDTO());
         }
 
     }
@@ -188,7 +188,7 @@ public class CollectionFragment extends BaseFragment implements ICollectionView,
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         if (savedInstanceState != null) {
-            presenter.setCollectionDTO((CollectionsPostDTO) savedInstanceState.getSerializable(Constants.POST_DATA));
+            presenter.setCollectionDTO((CollectionsPostModel) savedInstanceState.getSerializable(Constants.POST_DATA));
             savedPosition = savedInstanceState.getInt(Constants.STATE_SCROLL_POSITION);
             if (dual) {
                 initList();
